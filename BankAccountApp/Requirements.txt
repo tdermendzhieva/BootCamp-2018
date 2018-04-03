@@ -1,0 +1,12 @@
+Bank account application
+
+Scenario: You need to implement an application to handle new customer bank account requests.
+
+Requirements:
+- Read a .csv file of names, social security numbers, account type, and initial deposit
+- Use proper data structure to hold all these accounts
+- Both savings and checking(daily use) accounts share the following properties:
+	deposit()
+    withdraw()
+    transfer()
+    showInfo()
