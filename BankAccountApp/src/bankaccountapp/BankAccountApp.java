@@ -1,18 +1,37 @@
 package bankaccountapp;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import utilities.CSV;
+
 public class BankAccountApp {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		String file = System.getProperty("user.dir") + "\\src\\utilities\\NewBankAccounts.csv";
+		List<Account> accounts = new LinkedList<Account>();
 
-		Checking chkAccount1 = new Checking("Tom Wilson", "232323254", 1500);
-		Savings savAccount1 = new Savings("Maria Johnson", "346789098", 2500);
-		chkAccount1.showInfo();
-		System.out.println("*****************************");
-		savAccount1.showInfo();
 		// Read a CSV File then create new accounts based on that data
-		// lecture 33
-		// https://www.udemy.com/practice-java-by-building-projects/learn/v4/t/lecture/8099010?start=0
+		List<String[]> newAccountHolders = CSV.read(file);
+		for (String[] element : newAccountHolders) {
+			String name = element[0];
+			String sSn = element[1];
+			String accountType = element[2];
+			double initDeposit = Double.parseDouble(element[3]);
+			if (accountType.equals("Savings")) {
+				accounts.add(new Savings(name, sSn, initDeposit));
+			} else if (accountType.equals("Checking")) {
+				accounts.add(new Checking(name, sSn, initDeposit));
+			} else {
+				System.out.println("ERROR READING ACCOUNT TYPE");
+			}
+		}
+
+		for (Account account : accounts) {
+			System.out.println("**********************************\n");
+			account.showInfo();
+		}
+
 	}
 
 }
